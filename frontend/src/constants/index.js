@@ -1,8 +1,7 @@
-export const THEMES=[
+export const THEMES = [
     "light",
     "dark",
     "cupcake",
-    "retro",
     "bumblebee",
     "emerald",
     "corporate",
@@ -31,5 +30,5 @@ export const THEMES=[
     "winter",
     "dim",
     "nord",
-    "sunset"
-]
+    "sunset",
+  ];

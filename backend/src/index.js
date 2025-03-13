@@ -1,6 +1,7 @@
 //imports 
 import express from "express"
 import dotenv from "dotenv"
+import fileUpload from "express-fileupload";
 import cors from "cors"
 import path from "path"
 dotenv.config()
@@ -14,10 +15,12 @@ import cookieParser from 'cookie-parser'
 
 
 
+
 // env secrets
 const PORT=process.env.PORT
 
 //Middlewares
+app.use(fileUpload());
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
