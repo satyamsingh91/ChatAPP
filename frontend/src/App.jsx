@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
-import HomePage from "./pages/HomePage"
+import HomePage from './pages/HomePage'
 import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
 import SettingsPage from "./pages/SettingsPage"
@@ -30,8 +30,6 @@ const App = () => {
   return (
    <div data-theme={theme}>
     <Navbar />
-
-
     <Routes>
       <Route path='/' element={authUser ? <HomePage />: <Navigate to="/login" />} />
       <Route path='/signup' element={!authUser ? <SignupPage /> :<Navigate to="/"/>} />
