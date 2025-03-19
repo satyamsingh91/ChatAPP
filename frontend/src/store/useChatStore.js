@@ -40,7 +40,7 @@ export const useChatStore = create((set, get) => ({
   sendMessage:async(messageData)=>{
     const {selectedUser,messages}=get()
     try {
-      const res = await axiosInstance.post("/message/send/${selectedUser._id}",  messageData)
+      const res = await axiosInstance.post(`/message/send/${selectedUser._id}`,  messageData)
       set({messages:[...messages,res.data]})
     } catch (error) {
       toast.error(error.response.data.  message)
@@ -49,7 +49,7 @@ export const useChatStore = create((set, get) => ({
   },
 
   setSelectedUser: (selectedUser) => {
-    console.log("Selected User Updated:", selectedUser); // Debugging log
+    // console.log("Selected User Updated:", selectedUser); // Debugging log
     set({ selectedUser });
     get().getMessages(selectedUser?._id); // Fetch messages when selecting a user
   },
