@@ -105,8 +105,9 @@ export const useAuthStore = create((set, get) => ({
     // If already connected or no authUser, return
     if (!authUser || socket?.connected) return;
 
+
     // Create a new socket connection
-    const newSocket = io(BASE_URL, { query: { userId: authUser.id } });
+    const newSocket = io(BASE_URL, { query: { userId: authUser._id } });
 
     // Handle socket events properly
     newSocket.on("connect", () => {
@@ -122,8 +123,9 @@ export const useAuthStore = create((set, get) => ({
     });
 
     // ✅ Correctly attach the getOnlineUsers event to newSocket
-    newSocket.on("getOnlineUsers", (userIds) => {
-      set({ onlineUsers: userIds });
+    newSocket.on("getOnlineUsers", (userId) => {
+    
+      set({ onlineUsers: userId });
     });
 
     // ✅ Update socket in state
