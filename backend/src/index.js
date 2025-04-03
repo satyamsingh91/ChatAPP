@@ -1,26 +1,31 @@
-// index.js or server.js
 import dotenv from "dotenv";
-import express from "express"
+import express from "express";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { app, server } from "./lib/socket.js"; // Correctly importing app and server
+import { app, server } from "./lib/socket.js"; // Ensure correct import
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { connectDB } from "./lib/db.js";
 
+// Load environment variables
 dotenv.config();
 
-// ENV secrets
-const PORT = process.env.PORT;
+// Ensure PORT is set
+const PORT = process.env.PORT || 3000;
+
+// Connect to MongoDB
+connectDB();
 
 // Middlewares
 app.use(fileUpload());
-app.use(express.json()); // This should work fine now
+// app.use(express.json());
+app.use(express.json({limit: '50mb' })); 
+app.use(express.urlencoded({limit: '50mb' , extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5173", // Ensure frontend URL is correct
     credentials: true,
   })
 );
@@ -29,8 +34,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
 
-// Server Start
+// Start the server
 server.listen(PORT, () => {
-  console.log("Server is running on PORT: " + PORT);
-  connectDB();
+  console.log(`✅ Server is running on PORT: ${PORT}`);
 });
